@@ -9,7 +9,7 @@ import com.ratp.data.common.RepositoryFailureImpl
 import com.ratp.data.common.RepositorySuccessImpl
 import com.ratp.data.home.datasource.HomeLocalDataSource
 import com.ratp.data.home.datasource.HomeRemoteDataSource
-import com.ratp.data.home.model.Record
+import com.ratp.data.home.model.toBusinessModel
 import com.ratp.data.remoteconfig.RemoteConfigRepository
 
 class HomeRepositoryImpl(
@@ -33,10 +33,7 @@ class HomeRepositoryImpl(
         return when (val result =
             homeRemoteDataSource.fetch(remoteConfigRepository.dataSetUrl, start)) {
             is RepositorySuccess -> {
-                val response = result.response.records.map {
-                    transformToBusinessModel(it)
-                }
-
+                val response = result.response.toBusinessModel()
                 if (start == 0) {
                     homeLocalDataSource.cache(response)
                 } else {
@@ -50,15 +47,5 @@ class HomeRepositoryImpl(
             is RepositoryFailureImpl -> RepositoryFailureImpl(result.error)
             else -> RepositoryFailureImpl(AppError.UNKNOWN)
         }
-    }
-
-    private fun transformToBusinessModel(record: Record): ToiletBusinessModel {
-        return ToiletBusinessModel(
-            id = record.recordid,
-            address = record.fields.address,
-            openingHour = record.fields.hourly,
-            accessPmr = record.fields.accessPmr,
-            location = record.geometry.coordinates
-        )
     }
 }
