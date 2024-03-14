@@ -4,6 +4,6 @@ data class ToiletBusinessModel(
     val id: String,
     val address: String,
     val openingHour: String,
-    val prmAccess: Boolean,
-    val distance: Long
+    val accessPmr: String,
+    val location: List<Double>
 )
