@@ -1,4 +1,4 @@
-package com.ratp.toiletsapp.ui.theme
+package com.ratp.platform.ui.theme
 
 import android.app.Activity
 import android.os.Build

@@ -1,4 +1,4 @@
-package com.ratp.toiletsapp.ui.theme
+package com.ratp.platform.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
