@@ -16,3 +16,4 @@ dependencyResolutionManagement {
 rootProject.name = "Toilets App"
 include(":app")
 include(":business")
+include(":data")
