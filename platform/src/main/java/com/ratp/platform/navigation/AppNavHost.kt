@@ -7,6 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.ratp.platform.home.ui.HomeScreen
 
 @Composable
 fun AppNavHost(
@@ -19,9 +20,7 @@ fun AppNavHost(
         modifier = Modifier.padding(innerPadding)
     ) {
         composable(route = Screens.Home.name) {
-            //CreateHomeScreen {
-            //Navigate to detail
-            //}
+            HomeScreen()
         }
     }
 }

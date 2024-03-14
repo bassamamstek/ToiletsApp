@@ -1,3 +1,6 @@
 package com.ratp.business.home.repository
 
-class HomeFilterRepositoryImpl(override var accessPrm: Boolean = false) : HomeFilterRepository
+import javax.inject.Inject
+
+class HomeFilterRepositoryImpl @Inject constructor(override var accessPrm: Boolean = false) :
+    HomeFilterRepository

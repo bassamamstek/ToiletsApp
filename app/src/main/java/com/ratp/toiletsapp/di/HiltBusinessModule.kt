@@ -11,13 +11,15 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object HiltBusinessModule {
 
     @Provides
-    fun provideHomeFilterRepository() = HomeFilterRepositoryImpl()
+    @Singleton
+    fun provideHomeFilterRepository(): HomeFilterRepository = HomeFilterRepositoryImpl()
 
     @Provides
     fun provideHomeFilterUseCase(

@@ -6,10 +6,10 @@ fun ToiletsDataModel.toBusinessModel(): List<ToiletBusinessModel> {
     return records.map {
         ToiletBusinessModel(
             id = it.recordid,
-            address = it.fields.address,
-            openingHour = it.fields.hourly,
-            accessPmr = it.fields.accessPmr,
-            location = it.geometry.coordinates
+            address = it.fields.address ?: "",
+            openingHour = it.fields.hourly ?: "",
+            accessPmr = it.fields.accessPmr ?: "",
+            location = it.geometry.coordinates ?: emptyList()
         )
     }
 }

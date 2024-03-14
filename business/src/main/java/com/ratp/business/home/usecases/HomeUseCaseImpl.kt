@@ -9,8 +9,9 @@ import com.ratp.business.home.repository.HomeFilterRepository
 import com.ratp.business.home.repository.HomeRepository
 import com.ratp.business.home.repository.RepositoryFailure
 import com.ratp.business.home.repository.RepositorySuccess
+import javax.inject.Inject
 
-class HomeUsesCaseImpl(
+class HomeUsesCaseImpl @Inject constructor(
     private val homeRepository: HomeRepository,
     private val filterRepository: HomeFilterRepository
 ) : HomeUseCase {
