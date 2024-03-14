@@ -1,6 +1,7 @@
 package com.ratp.data.home.repository
 
 import com.ratp.business.common.model.AppError
+import com.ratp.business.gateway.RemoteConfigGateway
 import com.ratp.business.home.model.ToiletBusinessModel
 import com.ratp.business.home.repository.HomeRepository
 import com.ratp.business.home.repository.RepositoryResponse
@@ -10,12 +11,11 @@ import com.ratp.data.common.RepositorySuccessImpl
 import com.ratp.data.home.datasource.HomeLocalDataSource
 import com.ratp.data.home.datasource.HomeRemoteDataSource
 import com.ratp.data.home.model.toBusinessModel
-import com.ratp.data.remoteconfig.RemoteConfigRepository
 
 class HomeRepositoryImpl(
     private val homeRemoteDataSource: HomeRemoteDataSource,
     private val homeLocalDataSource: HomeLocalDataSource,
-    private val remoteConfigRepository: RemoteConfigRepository
+    private val remoteConfigRepository: RemoteConfigGateway
 ) : HomeRepository {
     override suspend fun initialFetchlData(): RepositoryResponse<List<ToiletBusinessModel>> {
         homeLocalDataSource.data?.let { safeLocalData ->
