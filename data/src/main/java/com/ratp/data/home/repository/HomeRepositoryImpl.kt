@@ -25,7 +25,7 @@ class HomeRepositoryImpl(
         return fetchAndCache(0)
     }
 
-    override suspend fun nextFetchData(): RepositoryResponse<List<ToiletBusinessModel>> {
+    override suspend fun fetchMoreData(): RepositoryResponse<List<ToiletBusinessModel>> {
         return fetchAndCache(homeLocalDataSource.lastIndex)
     }
 

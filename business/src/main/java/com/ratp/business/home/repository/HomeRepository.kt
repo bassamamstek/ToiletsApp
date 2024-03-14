@@ -4,6 +4,6 @@ import com.ratp.business.home.model.ToiletBusinessModel
 
 interface HomeRepository {
     suspend fun initialFetchlData(): RepositoryResponse<List<ToiletBusinessModel>>
-    suspend fun nextFetchData(): RepositoryResponse<List<ToiletBusinessModel>>
+    suspend fun fetchMoreData(): RepositoryResponse<List<ToiletBusinessModel>>
 
 }
