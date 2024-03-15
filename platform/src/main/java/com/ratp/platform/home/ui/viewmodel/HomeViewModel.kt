@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.ratp.business.common.model.Failure
 import com.ratp.business.common.model.Success
 import com.ratp.business.home.usecases.HomeUseCase
+import com.ratp.platform.home.factory.HomeFactory
 import com.ratp.platform.home.model.HomeViewAction
 import com.ratp.platform.home.model.HomeViewState
 import com.ratp.platform.home.model.OnLoadMore
@@ -18,10 +19,12 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.random.Random
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val homeUsesCase: HomeUseCase,
+    private val homeFactory: HomeFactory
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(HomeViewState())
@@ -38,7 +41,6 @@ class HomeViewModel @Inject constructor(
             OnStart -> {
                 fetchData()
             }
-
             OnLoadMore -> {}
         }
     }
@@ -50,7 +52,9 @@ class HomeViewModel @Inject constructor(
                 is Success -> {
                     _uiState.update { currentState ->
                         currentState.copy(
-                            homeElements = response.result,
+                            homeElements = response.result.map {
+                                homeFactory.generateViewElement(it, Random(50).nextInt())
+                            },
                             error = null
                         )
                     }

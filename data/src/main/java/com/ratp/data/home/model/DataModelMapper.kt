@@ -7,6 +7,7 @@ fun ToiletsDataModel.toBusinessModel(): List<ToiletBusinessModel> {
         ToiletBusinessModel(
             id = it.recordid,
             address = it.fields.address ?: "",
+            additionalAddress = it.fields.additionalAddress ?: "",
             openingHour = it.fields.hourly ?: "",
             accessPmr = it.fields.accessPmr ?: "",
             location = it.geometry.coordinates ?: emptyList()
