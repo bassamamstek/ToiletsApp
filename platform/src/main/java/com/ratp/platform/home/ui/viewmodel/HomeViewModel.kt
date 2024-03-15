@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ratp.business.common.model.Failure
 import com.ratp.business.common.model.Success
+import com.ratp.business.common.usecase.LocationUseCase
 import com.ratp.business.home.usecases.HomeUseCase
 import com.ratp.platform.home.factory.HomeFactory
 import com.ratp.platform.home.model.HomeViewAction
@@ -19,11 +20,11 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlin.random.Random
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val homeUsesCase: HomeUseCase,
+    private val distanceUseCase: LocationUseCase,
     private val homeFactory: HomeFactory
 ) : ViewModel() {
 
@@ -53,7 +54,9 @@ class HomeViewModel @Inject constructor(
                     _uiState.update { currentState ->
                         currentState.copy(
                             homeElements = response.result.map {
-                                homeFactory.generateViewElement(it, Random(50).nextInt())
+                                homeFactory.generateViewElement(it, it.location?.let { location ->
+                                    distanceUseCase.getDistance(location)
+                                })
                             },
                             error = null
                         )

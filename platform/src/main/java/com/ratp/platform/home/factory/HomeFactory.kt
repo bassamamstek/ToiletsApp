@@ -4,14 +4,16 @@ import com.ratp.business.home.model.ToiletBusinessModel
 import com.ratp.platform.home.model.HomeViewElement
 
 class HomeFactory {
-    fun generateViewElement(element: ToiletBusinessModel, distance: Int): HomeViewElement {
+    fun generateViewElement(element: ToiletBusinessModel, distance: Float?): HomeViewElement {
         return HomeViewElement(
             id = element.id,
             address = element.address,
             additionalAddress = element.additionalAddress,
-            openingHour = "horaires d'ouverture: ${element.openingHour}",
+            openingHour = "Horaires d'ouverture : ${element.openingHour}",
             accessPRM = element.accessPmr.equals("oui", ignoreCase = true),
-            distance = "à $distance km"
+            distance = distance?.let {
+                "A $distance km"
+            } ?: ""
         )
     }
 }

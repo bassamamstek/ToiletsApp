@@ -1,5 +1,8 @@
 package com.ratp.toiletsapp.di
 
+import com.ratp.business.common.repository.LocationRepository
+import com.ratp.business.common.usecase.LocationUseCase
+import com.ratp.business.common.usecase.LocationUseCaseImpl
 import com.ratp.business.home.repository.HomeFilterRepository
 import com.ratp.business.home.repository.HomeFilterRepositoryImpl
 import com.ratp.business.home.repository.HomeRepository
@@ -33,4 +36,12 @@ object HiltBusinessModule {
         homeFilterRepository: HomeFilterRepository
     ): HomeUseCase =
         HomeUsesCaseImpl(homeRepository, homeFilterRepository)
+
+    @Provides
+    fun provideDistanceUsesCase(
+        locationRepository: LocationRepository
+    ): LocationUseCase =
+        LocationUseCaseImpl(locationRepository)
+
+
 }
