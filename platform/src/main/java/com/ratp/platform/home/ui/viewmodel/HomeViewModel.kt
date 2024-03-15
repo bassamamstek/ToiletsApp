@@ -5,10 +5,12 @@ import androidx.lifecycle.viewModelScope
 import com.ratp.business.common.model.Failure
 import com.ratp.business.common.model.Success
 import com.ratp.business.common.usecase.LocationUseCase
+import com.ratp.business.home.usecases.HomeFilterUseCase
 import com.ratp.business.home.usecases.HomeUseCase
 import com.ratp.platform.home.factory.HomeFactory
 import com.ratp.platform.home.model.HomeViewAction
 import com.ratp.platform.home.model.HomeViewState
+import com.ratp.platform.home.model.OnFilterSwitched
 import com.ratp.platform.home.model.OnLoadMore
 import com.ratp.platform.home.model.OnStart
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -25,6 +27,7 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val homeUsesCase: HomeUseCase,
     private val distanceUseCase: LocationUseCase,
+    private val homeFilterUseCase: HomeFilterUseCase,
     private val homeFactory: HomeFactory
 ) : ViewModel() {
 
@@ -42,7 +45,16 @@ class HomeViewModel @Inject constructor(
             OnStart -> {
                 fetchData()
             }
+
             OnLoadMore -> {}
+            OnFilterSwitched -> {
+                if (homeFilterUseCase.accessPrmFilterEnabled) {
+                    homeFilterUseCase.disableAccessPrmFilter()
+                } else {
+                    homeFilterUseCase.enableAccessPrmFilter()
+                }
+                fetchData()
+            }
         }
     }
 
@@ -53,11 +65,14 @@ class HomeViewModel @Inject constructor(
                 is Success -> {
                     _uiState.update { currentState ->
                         currentState.copy(
-                            homeElements = response.result.map {
-                                homeFactory.generateViewElement(it, it.location?.let { location ->
-                                    distanceUseCase.getDistance(location)
-                                })
-                            },
+                            homeElements = response.result
+                                .map {
+                                    homeFactory.generateViewElement(
+                                        it,
+                                        it.location?.let { location ->
+                                            distanceUseCase.getDistance(location)
+                                        })
+                                },
                             error = null
                         )
                     }

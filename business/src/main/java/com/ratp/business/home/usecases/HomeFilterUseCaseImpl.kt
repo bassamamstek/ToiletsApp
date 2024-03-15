@@ -6,6 +6,9 @@ import javax.inject.Inject
 class HomeFilterUseCaseImpl @Inject constructor(
     private val homeFilterRepository: HomeFilterRepository
 ) : HomeFilterUseCase {
+    override val accessPrmFilterEnabled: Boolean
+        get() = homeFilterRepository.accessPrm
+
     override fun enableAccessPrmFilter() {
         homeFilterRepository.accessPrm = true
     }
