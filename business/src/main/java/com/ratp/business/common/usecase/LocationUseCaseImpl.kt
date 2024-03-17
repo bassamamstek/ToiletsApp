@@ -10,8 +10,7 @@ class LocationUseCaseImpl @Inject constructor(
 
     /**
      * get distance in km between location of user and location of destination
-     * @currentLocation location of user
-     * @addressLocation location of distination
+     * @destination location of distination
      * @return distance in KM
      */
     override suspend fun getDistance(destination: Location): Float? {

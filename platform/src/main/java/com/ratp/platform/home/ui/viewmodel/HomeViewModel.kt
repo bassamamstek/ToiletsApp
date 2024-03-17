@@ -1,5 +1,6 @@
 package com.ratp.platform.home.ui.viewmodel
 
+import android.location.Location
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ratp.business.common.model.Failure
@@ -69,7 +70,10 @@ class HomeViewModel @Inject constructor(
                                     homeFactory.generateViewElement(
                                         it,
                                         it.location?.let { location ->
-                                            locationUseCase.getDistance(location)
+                                            locationUseCase.getDistance(Location("").apply {
+                                                latitude = location.first()
+                                                longitude = location.last()
+                                            })
                                         })
                                 },
                             error = null

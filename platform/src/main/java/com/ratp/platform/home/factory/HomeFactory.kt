@@ -12,7 +12,7 @@ class HomeFactory {
             openingHour = "Horaires d'ouverture : ${element.openingHour}",
             accessPRM = element.accessPmr.equals("oui", ignoreCase = true),
             distance = distance?.let {
-                "A $distance km"
+                "A ${String.format("%.2f", distance)} km"
             } ?: ""
         )
     }

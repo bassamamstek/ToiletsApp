@@ -1,6 +1,5 @@
 package com.ratp.data.home.model
 
-import android.location.Location
 import com.ratp.business.home.model.ToiletBusinessModel
 
 fun ToiletsDataModel.toBusinessModel(): List<ToiletBusinessModel> {
@@ -11,12 +10,7 @@ fun ToiletsDataModel.toBusinessModel(): List<ToiletBusinessModel> {
             additionalAddress = it.fields.additionalAddress ?: "",
             openingHour = it.fields.hourly ?: "",
             accessPmr = it.fields.accessPmr ?: "",
-            location = it.fields.geoPoint2d?.let { coordinates ->
-                Location(null).apply {
-                    latitude = coordinates.first()
-                    longitude = coordinates.last()
-                }
-            }
+            location = it.fields.geoPoint2d
         )
     }
 }
