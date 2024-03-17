@@ -26,7 +26,7 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val homeUsesCase: HomeUseCase,
-    private val distanceUseCase: LocationUseCase,
+    private val locationUseCase: LocationUseCase,
     private val homeFilterUseCase: HomeFilterUseCase,
     private val homeFactory: HomeFactory
 ) : ViewModel() {
@@ -45,7 +45,6 @@ class HomeViewModel @Inject constructor(
             OnStart -> {
                 fetchData()
             }
-
             OnLoadMore -> {}
             OnFilterSwitched -> {
                 if (homeFilterUseCase.accessPrmFilterEnabled) {
@@ -70,7 +69,7 @@ class HomeViewModel @Inject constructor(
                                     homeFactory.generateViewElement(
                                         it,
                                         it.location?.let { location ->
-                                            distanceUseCase.getDistance(location)
+                                            locationUseCase.getDistance(location)
                                         })
                                 },
                             error = null
