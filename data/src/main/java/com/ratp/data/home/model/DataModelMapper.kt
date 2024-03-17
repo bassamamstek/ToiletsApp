@@ -11,7 +11,7 @@ fun ToiletsDataModel.toBusinessModel(): List<ToiletBusinessModel> {
             additionalAddress = it.fields.additionalAddress ?: "",
             openingHour = it.fields.hourly ?: "",
             accessPmr = it.fields.accessPmr ?: "",
-            location = it.geometry.coordinates?.let { coordinates ->
+            location = it.fields.geoPoint2d?.let { coordinates ->
                 Location(null).apply {
                     latitude = coordinates.first()
                     longitude = coordinates.last()
